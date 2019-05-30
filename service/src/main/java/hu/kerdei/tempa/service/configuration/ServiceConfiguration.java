@@ -7,9 +7,6 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import(PersistenceConfiguration.class)
-@ComponentScan(basePackages = {"hu.kerdei.measurement.service"})
+@ComponentScan(basePackages = {"hu.kerdei.tempa.service"})
 public class ServiceConfiguration {
-
-
-
 }

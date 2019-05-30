@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EnableJpaRepositories(basePackages = "hu.kerdei.measurement.persistence.repositories")
-@EntityScan(basePackages = "hu.kerdei.measurement.persistence.entities")
+@EnableJpaRepositories(basePackages = "hu.kerdei.tempa.persistence.repository")
+@EntityScan(basePackages = "hu.kerdei.tempa.persistence.entity")
 @Configuration
 @Import(LoadDatabase.class)
 public class PersistenceConfiguration {
