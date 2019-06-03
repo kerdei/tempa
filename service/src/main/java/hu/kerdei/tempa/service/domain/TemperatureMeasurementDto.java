@@ -2,7 +2,7 @@ package hu.kerdei.tempa.service.domain;
 
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
@@ -12,6 +12,6 @@ import java.time.LocalDate;
 public class TemperatureMeasurementDto extends BaseDto {
     private Long meterID;
     private Double value;
-    private LocalDate date;
+    private LocalDateTime date;
     private String userName;
 }

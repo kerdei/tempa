@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -20,10 +20,10 @@ public class TemperatureMeasurementEntity {
 
     private Long meterID;
     private Double value;
-    private LocalDate date;
+    private LocalDateTime date;
     private String userName;
 
-    public TemperatureMeasurementEntity(Long meterID, Double value, LocalDate date, String userName) {
+    public TemperatureMeasurementEntity(Long meterID, Double value, LocalDateTime date, String userName) {
         this.meterID = meterID;
         this.value = value;
         this.date = date;
