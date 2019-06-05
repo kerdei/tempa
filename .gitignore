@@ -1,3 +1,4 @@
 
 .idea/*
 .mvn/*
+persistence/src/main/resources/application.properties
