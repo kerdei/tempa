@@ -1,11 +1,13 @@
 package hu.kerdei.tempa.application.configuraton;
 
+import hu.kerdei.tempa.service.configuration.ServiceConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
-//@Import(ServiceConfiguration.class) //TODO
+@Import(ServiceConfiguration.class)
 @ComponentScan(basePackages = {
         "hu.kerdei.tempa.application.controller"})
 public class TempaApplication {
