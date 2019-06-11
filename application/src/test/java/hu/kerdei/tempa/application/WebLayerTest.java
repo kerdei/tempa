@@ -26,7 +26,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -92,6 +92,9 @@ public class WebLayerTest {
                 andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).
                 andExpect(jsonPath("$", hasSize(0))).
                 andDo(print());
+
+        verify(measurementService).getAll();
+        verifyNoMoreInteractions(measurementService);
     }
 
 
@@ -112,6 +115,9 @@ public class WebLayerTest {
                 contentType(MediaType.APPLICATION_JSON_UTF8)).
                 andExpect(status().isOk())
                 .andDo(print());
+
+        verify(measurementService).add(newTestMeasurement);
+        verifyNoMoreInteractions(measurementService);
     }
 
 
