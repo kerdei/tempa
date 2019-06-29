@@ -8,15 +8,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://tempa-frontend.cfapps.io/")
 public class MeasurementController {
 
     @Autowired
+    private
     TemperatureMeasurementServiceImpl measurementService;
 
     @GetMapping("/measurements")
     List<TemperatureMeasurementDto> getAll() {
         return measurementService.getAll();
+    }
+
+    @GetMapping("/measurements/{userName}/yesterday")
+    List<TemperatureMeasurementDto> allMeasurementForUserYesterday(@PathVariable(name = "userName") String userName) {
+        return measurementService.measurementsByClientUntilYesterday(userName);
     }
 
     @PostMapping("/measurements/add")

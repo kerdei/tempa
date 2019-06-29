@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class TemperatureMeasurementEntity {
 
     private @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     private Long meterID;

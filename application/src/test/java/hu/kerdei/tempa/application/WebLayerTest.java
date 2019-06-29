@@ -1,7 +1,7 @@
 package hu.kerdei.tempa.application;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hu.kerdei.tempa.application.configuraton.TempaApplication;
+import hu.kerdei.tempa.application.configuration.TempaApplication;
 import hu.kerdei.tempa.application.controller.MeasurementController;
 import hu.kerdei.tempa.persistence.repository.TemperatureMeasurementRepository;
 import hu.kerdei.tempa.service.domain.TemperatureMeasurementDto;

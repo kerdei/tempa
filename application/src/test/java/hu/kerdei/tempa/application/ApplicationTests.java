@@ -1,6 +1,6 @@
 package hu.kerdei.tempa.application;
 
-import hu.kerdei.tempa.application.configuraton.TempaApplication;
+import hu.kerdei.tempa.application.configuration.TempaApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
