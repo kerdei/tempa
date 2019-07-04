@@ -53,7 +53,7 @@ public class TemperatureMeasurementServiceImpl implements TemperatureMeasurement
 
     @Override
     public List<TemperatureMeasurementDto> measurementsByClientUntilYesterday(String userName) {
-        List<TemperatureMeasurementEntity> measurementEntities = measurementRepository.measurementsByClientUntilYesterday(userName).
+        List<TemperatureMeasurementEntity> measurementEntities = measurementRepository.lastDayMeasurementsByClient(userName).
                 orElseThrow(() -> new MeasurementNotFoundException(userName));
 
         if (measurementEntities.size() > 1) {

@@ -12,6 +12,6 @@ import java.util.Optional;
 public interface TemperatureMeasurementRepository extends JpaRepository<TemperatureMeasurementEntity, Long> {
 
     @Query("select e from TemperatureMeasurementEntity e where e.userName = :userName and e.date > DATEADD('DAY',-1, CURRENT_DATE)")
-    Optional<List<TemperatureMeasurementEntity>> measurementsByClientUntilYesterday(
+    Optional<List<TemperatureMeasurementEntity>> lastDayMeasurementsByClient(
             @Param("userName") String userName);
 }

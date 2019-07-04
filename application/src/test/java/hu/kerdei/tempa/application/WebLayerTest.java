@@ -99,7 +99,7 @@ public class WebLayerTest {
 
 
     @Test
-    public void measurementAddShouldReturnMeasurmentWhenOk() throws Exception {
+    public void measurementAddShouldReturnMeasurementWhenOk() throws Exception {
         //Given
 
         TemperatureMeasurementDto newTestMeasurement = new TemperatureMeasurementDto(
