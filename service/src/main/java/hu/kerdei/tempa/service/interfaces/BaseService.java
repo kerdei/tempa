@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface BaseService<T> {
 	
-	List<T> getAll() throws Exception;
+	List<T> getAll();
 
-	T getById(Long id) throws Exception;
+	T getById(Long id);
 
-	void removeById(Long id) throws Exception;
+	void removeById(Long id);
 }

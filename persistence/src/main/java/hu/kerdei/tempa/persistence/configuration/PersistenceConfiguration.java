@@ -10,7 +10,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableJpaRepositories(basePackages = "hu.kerdei.tempa.persistence.repository")
-@EntityScan(basePackages = "hu.kerdei.tempa.persistence.entity")
+@EntityScan(basePackages = "hu.kerdei.tempa.persistence.model")
 @Configuration
 @Import(LoadDatabase.class)
 public class PersistenceConfiguration {

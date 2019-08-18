@@ -9,9 +9,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @AllArgsConstructor
-public class TemperatureMeasurementDto extends BaseDto {
-    private Long meterID;
+public class MeasurementDto extends BaseDto {
     private Double value;
     private LocalDateTime date;
-    private String userName;
 }
