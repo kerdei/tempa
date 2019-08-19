@@ -1,6 +1,5 @@
 package hu.kerdei.tempa.service.service;
 
-import hu.kerdei.tempa.persistence.repository.UserRepository;
 import hu.kerdei.tempa.service.domain.MeasurementDeviceDto;
 import hu.kerdei.tempa.service.domain.UserDto;
 import hu.kerdei.tempa.service.interfaces.TemperatureMeasurementService;
@@ -9,7 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @Service

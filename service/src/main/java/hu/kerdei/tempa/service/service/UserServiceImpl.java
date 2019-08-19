@@ -5,15 +5,18 @@ import hu.kerdei.tempa.persistence.model.User;
 import hu.kerdei.tempa.persistence.repository.UserRepository;
 import hu.kerdei.tempa.service.domain.MeasurementDto;
 import hu.kerdei.tempa.service.domain.UserDto;
+import hu.kerdei.tempa.service.exception.MeasurementNotFoundException;
 import hu.kerdei.tempa.service.interfaces.UserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -45,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto findUserByName(String userName) {
-        Optional<User> userByName = userRepository.findUserByName(userName);
+        User userByName = userRepository.findUserByName(userName).orElseThrow(() -> new MeasurementNotFoundException(1));
         return modelMapper.map(userByName, UserDto.class);
     }
 }

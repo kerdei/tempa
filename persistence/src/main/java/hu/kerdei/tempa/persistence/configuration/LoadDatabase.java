@@ -29,7 +29,8 @@ class LoadDatabase {
             MeasurementDevice measurementDevice = new MeasurementDevice(1L, 1L, "Outdoor", List.of(measurement));
             log.info("Preloading " + measurementDeviceRepository.save(measurementDevice));
 
-            User user = new User(1L, "Krisztián", "Erdei", List.of(measurementDevice));
+            User user = new User(1L, "Krisztián", "Erdei", "kerdei", List.of(measurementDevice));
+
 
             log.info("Preloading " + userRepository.save(user));
 
