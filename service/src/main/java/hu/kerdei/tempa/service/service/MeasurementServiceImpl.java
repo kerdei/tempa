@@ -21,8 +21,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class MeasurementServiceImpl implements MeasurementService {
 
-    MeasurementRepository measurementRepository;
-    ModelMapper modelMapper;
+    private MeasurementRepository measurementRepository;
+    private ModelMapper modelMapper;
 
     @Override
     public List<MeasurementDto> getAll() {

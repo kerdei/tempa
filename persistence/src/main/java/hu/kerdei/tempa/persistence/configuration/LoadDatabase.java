@@ -22,19 +22,34 @@ class LoadDatabase {
     CommandLineRunner initDatabase(MeasurementRepository measurementRepository, UserRepository userRepository, MeasurementDeviceRepository measurementDeviceRepository) {
         return args -> {
 
-            Measurement measurement = new Measurement(1L, 25.5, LocalDateTime.now());
+            User user1 = new User("John", "Smith", "smithy");
+            User user2 = new User("Robert", "Johnson", "jonyr");
+            log.info("Preloading " + userRepository.saveAndFlush(user1));
+            log.info("Preloading " + userRepository.saveAndFlush(user2));
+            MeasurementDevice outdoorDevice = new MeasurementDevice(1L, "Outdoor", user1);
+            MeasurementDevice bedroomDevice = new MeasurementDevice(2L, "Bedroom", user1);
 
-            log.info("Preloading " + measurementRepository.save(measurement));
+            MeasurementDevice anotherDevice = new MeasurementDevice(3L, "Test", user2);
 
-            MeasurementDevice measurementDevice = new MeasurementDevice(1L, 1L, "Outdoor", List.of(measurement));
-            log.info("Preloading " + measurementDeviceRepository.save(measurementDevice));
+            log.info("Preloading " + measurementDeviceRepository.saveAndFlush(anotherDevice));
+            log.info("Preloading " + measurementDeviceRepository.saveAndFlush(bedroomDevice));
+            log.info("Preloading " + measurementDeviceRepository.saveAndFlush(outdoorDevice));
 
-            User user = new User(1L, "Krisztián", "Erdei", "kerdei", List.of(measurementDevice));
+            LocalDateTime time = LocalDateTime.of(2019, 8, 20, 17, 30);
+            for (int i = 0; i < 512; i++) {
+                Measurement measurement = new Measurement(25.5 + Math.random() * 6 - 3, time.plusMinutes(i), outdoorDevice);
+                log.info("Preloading " + measurementRepository.saveAndFlush(measurement));
+            }
 
+            for (int i = 0; i < 128; i++) {
+                Measurement measurement = new Measurement(21.0 + + Math.random() * 6 - 3, time.plusMinutes(i), bedroomDevice);
+                log.info("Preloading " + measurementRepository.save(measurement));
+            }
 
-            log.info("Preloading " + userRepository.save(user));
-
-
+            for (int i = 0; i < 16; i++) {
+                Measurement measurement = new Measurement(26.7 + + Math.random() * 6 - 3, time.plusMinutes(i), anotherDevice);
+                log.info("Preloading " + measurementRepository.save(measurement));
+            }
         };
     }
 }

@@ -30,7 +30,7 @@ public class MeasurementDevice {
     @Size(max = 30, min = 3)
     private String measurerDeviceName;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

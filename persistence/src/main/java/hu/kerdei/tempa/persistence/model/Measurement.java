@@ -25,7 +25,7 @@ public class Measurement {
     @NotNull
     private LocalDateTime date;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.MERGE)
     @JoinColumn(name = "device_id", nullable = false)
     private MeasurementDevice measurementDevice;
 

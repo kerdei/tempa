@@ -1,29 +1,30 @@
 package hu.kerdei.tempa.service.service;
 
-import hu.kerdei.tempa.persistence.model.Measurement;
+import hu.kerdei.tempa.persistence.model.MeasurementDevice;
 import hu.kerdei.tempa.persistence.model.User;
+import hu.kerdei.tempa.persistence.repository.MeasurementDeviceRepository;
 import hu.kerdei.tempa.persistence.repository.UserRepository;
-import hu.kerdei.tempa.service.domain.MeasurementDto;
+import hu.kerdei.tempa.service.domain.MeasurementDeviceDto;
 import hu.kerdei.tempa.service.domain.UserDto;
-import hu.kerdei.tempa.service.exception.MeasurementNotFoundException;
+import hu.kerdei.tempa.service.exception.MeasurementDeviceNotFoundException;
+import hu.kerdei.tempa.service.exception.UserNotFoundException;
 import hu.kerdei.tempa.service.interfaces.UserService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    ModelMapper modelMapper;
-
-    @Autowired
-    UserRepository userRepository;
+    private ModelMapper modelMapper;
+    private UserRepository userRepository;
+    private MeasurementDeviceRepository measurementDeviceRepository;
 
 
     @Override
@@ -48,7 +49,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto findUserByName(String userName) {
-        User userByName = userRepository.findUserByName(userName).orElseThrow(() -> new MeasurementNotFoundException(1));
+
+        User userByName = userRepository.findUserByName(userName).orElseThrow(() -> new UserNotFoundException(userName));
         return modelMapper.map(userByName, UserDto.class);
+    }
+
+    @Override
+    public List<MeasurementDeviceDto> getAllDeviceByUser(String userName) {
+
+        User user = userRepository.findUserByName(userName).orElseThrow(() -> new UserNotFoundException(userName));
+        List<MeasurementDevice> measurementDevices = measurementDeviceRepository.findByUser(user).orElseThrow(() -> new MeasurementDeviceNotFoundException(user));
+
+        Type listType = new TypeToken<List<MeasurementDeviceDto>>() {
+        }.getType();
+
+        return modelMapper.map(measurementDevices, listType);
     }
 }
