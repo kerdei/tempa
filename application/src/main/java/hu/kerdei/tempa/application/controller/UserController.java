@@ -1,8 +1,8 @@
 package hu.kerdei.tempa.application.controller;
 
 import hu.kerdei.tempa.service.domain.MeasurementDeviceDto;
-import hu.kerdei.tempa.service.domain.MeasurementDto;
-import hu.kerdei.tempa.service.service.UserManageService;
+import hu.kerdei.tempa.service.interfaces.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 public class UserController {
 
-    @Autowired
-    UserManageService userManageService;
+
+    UserService userService;
 
     @GetMapping("/{userName}")
     List<MeasurementDeviceDto> getAllMeasurementDevicesForUser(@PathVariable(name = "userName") String userName) {
-        return userManageService.getAllDeviceByUser(userName);
+        return userService.getAllDeviceByUser(userName);
     }
 }

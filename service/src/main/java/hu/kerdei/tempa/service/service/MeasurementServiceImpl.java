@@ -4,7 +4,8 @@ import hu.kerdei.tempa.persistence.model.Measurement;
 import hu.kerdei.tempa.persistence.repository.MeasurementRepository;
 import hu.kerdei.tempa.service.domain.MeasurementDto;
 import hu.kerdei.tempa.service.exception.MeasurementNotFoundException;
-import hu.kerdei.tempa.service.interfaces.TemperatureMeasurementService;
+import hu.kerdei.tempa.service.interfaces.MeasurementService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
@@ -17,12 +18,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class TemperatureMeasurementServiceImpl implements TemperatureMeasurementService {
+@AllArgsConstructor
+public class MeasurementServiceImpl implements MeasurementService {
 
-    @Autowired
     MeasurementRepository measurementRepository;
-
-    @Autowired
     ModelMapper modelMapper;
 
     @Override
@@ -53,20 +52,18 @@ public class TemperatureMeasurementServiceImpl implements TemperatureMeasurement
     }
 
     @Override
-    public List<MeasurementDto> measurementsByClientUntilYesterday(String userName, boolean filterSameValues) {
-        //List<Measurement> measurementEntities = measurementRepository.lastDayMeasurementsByClient(userName).
-        //        orElseThrow(() -> new MeasurementNotFoundException(userName));
+    public List<MeasurementDto> measurementsByDeviceUntilYesterday(Long deviceId, boolean filterSameValues) {
+        List<Measurement> measurementEntities = measurementRepository.lastDayMeasurementsByDeviceId(deviceId).
+                orElseThrow(() -> new MeasurementNotFoundException(deviceId));
 
-        //   if (filterSameValues) {
-        //       filterSameValues(measurementEntities);
-        //   }
+        if (filterSameValues) {
+            filterSameValues(measurementEntities);
+        }
 
         Type listType = new TypeToken<List<MeasurementDto>>() {
         }.getType();
 
-        //return modelMapper.map(measurementEntities, listType);
-
-        return Collections.emptyList();
+        return modelMapper.map(measurementEntities, listType);
     }
 
     private void filterSameValues(List<Measurement> measurementEntities) {

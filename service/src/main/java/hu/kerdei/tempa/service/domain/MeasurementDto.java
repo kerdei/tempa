@@ -1,5 +1,6 @@
 package hu.kerdei.tempa.service.domain;
 
+import hu.kerdei.tempa.persistence.model.MeasurementDevice;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -12,4 +13,5 @@ import java.time.LocalDateTime;
 public class MeasurementDto extends BaseDto {
     private Double value;
     private LocalDateTime date;
+    private MeasurementDevice measurementDevice;
 }

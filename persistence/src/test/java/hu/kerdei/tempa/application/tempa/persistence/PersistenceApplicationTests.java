@@ -16,7 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -83,7 +82,7 @@ public class PersistenceApplicationTests {
         assertEquals(48, allMeasurement.size());
 
         List<Measurement> actualLastDayMeasurements =
-                measurementRepository.lastDayMeasurementsByDevice(measurementDevice.getId()).orElseThrow(NullPointerException::new);
+                measurementRepository.lastDayMeasurementsByDeviceId(measurementDevice.getId()).orElseThrow(NullPointerException::new);
         assertEquals(lastDayMeasurements, actualLastDayMeasurements);
 
         for (Measurement unwantedMeasurement : unwantedMeasurements) {

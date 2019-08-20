@@ -1,7 +1,7 @@
 package hu.kerdei.tempa.application.controller;
 
 import hu.kerdei.tempa.service.domain.MeasurementDto;
-import hu.kerdei.tempa.service.interfaces.TemperatureMeasurementService;
+import hu.kerdei.tempa.service.interfaces.MeasurementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,16 +13,16 @@ public class MeasurementController {
 
     @Autowired
     private
-    TemperatureMeasurementService measurementService;
+    MeasurementService measurementService;
 
     @GetMapping("/measurements")
     List<MeasurementDto> getAll() {
         return measurementService.getAll();
     }
 
-    @GetMapping("/measurements/{userName}/yesterday")
-    List<MeasurementDto> allMeasurementForUserYesterday(@PathVariable(name = "userName") String userName) {
-        return measurementService.measurementsByClientUntilYesterday(userName, true);
+    @GetMapping("/measurements/{deviceId}/yesterday")
+    List<MeasurementDto> allMeasurementForUserYesterday(@PathVariable(name = "deviceId") Long deviceId) {
+        return measurementService.measurementsByDeviceUntilYesterday(deviceId, true);
     }
 
     @PostMapping("/measurements/add")

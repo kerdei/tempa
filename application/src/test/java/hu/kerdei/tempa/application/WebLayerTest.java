@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.kerdei.tempa.application.configuration.TempaApplication;
 import hu.kerdei.tempa.application.controller.MeasurementController;
 import hu.kerdei.tempa.persistence.repository.MeasurementRepository;
-import hu.kerdei.tempa.service.service.TemperatureMeasurementServiceImpl;
+import hu.kerdei.tempa.service.service.MeasurementServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +36,7 @@ public class WebLayerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private TemperatureMeasurementServiceImpl measurementService;
+    private MeasurementServiceImpl measurementService;
 
     @MockBean
     private MeasurementRepository measurementRepository;
