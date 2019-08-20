@@ -1,17 +1,16 @@
 package hu.kerdei.tempa.service.domain;
 
+import hu.kerdei.tempa.persistence.model.User;
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @NoArgsConstructor
 @Data
 @AllArgsConstructor
-public class TemperatureMeasurementDto extends BaseDto {
+public class MeasurementDeviceDto extends BaseDto {
     private Long meterID;
-    private Double value;
-    private LocalDateTime date;
-    private String userName;
+    private String measurerDeviceName;
+    private User user;
+
 }

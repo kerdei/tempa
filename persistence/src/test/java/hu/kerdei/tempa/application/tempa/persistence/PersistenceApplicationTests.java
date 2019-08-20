@@ -1,8 +1,10 @@
 package hu.kerdei.tempa.application.tempa.persistence;
 
 import hu.kerdei.tempa.persistence.configuration.PersistenceConfiguration;
-import hu.kerdei.tempa.persistence.entity.TemperatureMeasurementEntity;
-import hu.kerdei.tempa.persistence.repository.TemperatureMeasurementRepository;
+import hu.kerdei.tempa.persistence.model.Measurement;
+import hu.kerdei.tempa.persistence.model.MeasurementDevice;
+import hu.kerdei.tempa.persistence.model.User;
+import hu.kerdei.tempa.persistence.repository.MeasurementRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +29,7 @@ public class PersistenceApplicationTests {
     TestEntityManager entityManager;
 
     @Autowired
-    TemperatureMeasurementRepository measurementRepository;
+    MeasurementRepository measurementRepository;
 
     @Before
     public void resetDB() {
@@ -37,45 +39,53 @@ public class PersistenceApplicationTests {
     @Test
     public void lastDayMeasurementsByClient() {
         //Given
-        List<TemperatureMeasurementEntity> lastDayMeasurements = new ArrayList<>();
-        List<TemperatureMeasurementEntity> unwantedMeasurements = new ArrayList<>();
+        List<Measurement> lastDayMeasurements = new ArrayList<>();
+        List<Measurement> unwantedMeasurements = new ArrayList<>();
         LocalDateTime lastDay = LocalDateTime.now().minusDays(1);
-        String userName = "testUser";
 
+        User correctUser = new User("Name", "Test", "testName");
+        User notCorrectUser = new User("Not", "the", "one!");
+        entityManager.persist(correctUser);
+        entityManager.persist(notCorrectUser);
+
+
+        MeasurementDevice measurementDevice = new MeasurementDevice(3L, "Bedroom", correctUser);
+        MeasurementDevice notCorrectMeasurementDevice = new MeasurementDevice(4L, "Bedroom", notCorrectUser);
+
+        entityManager.persist(measurementDevice);
         for (int i = 0; i < 16; i++) {
             lastDay = lastDay.plusHours(1);
-            TemperatureMeasurementEntity lastDayMeasurement =
-                    new TemperatureMeasurementEntity(1L, 16.5, lastDay, userName);
+            Measurement lastDayMeasurement = new Measurement(16.5, lastDay, measurementDevice);
+
             lastDayMeasurements.add(lastDayMeasurement);
             entityManager.persist(lastDayMeasurement);
-            entityManager.flush();
         }
         LocalDateTime oldDate = lastDay.minusMonths(1);
 
         for (int i = 0; i < 16; i++) {
             oldDate = oldDate.plusHours(1);
-            TemperatureMeasurementEntity oldMeasurement =
-                    new TemperatureMeasurementEntity(1L, 16.5, oldDate, userName);
+            Measurement oldMeasurement =
+                    new Measurement(16.5, oldDate, measurementDevice);
             unwantedMeasurements.add(oldMeasurement);
             entityManager.persist(oldMeasurement);
-            entityManager.flush();
         }
         lastDay = LocalDateTime.now().minusDays(1);
         for (int i = 0; i < 16; i++) {
             lastDay = lastDay.plusHours(1);
-            TemperatureMeasurementEntity lastDayMeasurementWithDifferentUser =
-                    new TemperatureMeasurementEntity(1L, 16.5, lastDay, "otherUser");
+            Measurement lastDayMeasurementWithDifferentUser =
+                    new Measurement(16.5, lastDay, notCorrectMeasurementDevice);
             unwantedMeasurements.add(lastDayMeasurementWithDifferentUser);
             entityManager.persist(lastDayMeasurementWithDifferentUser);
-            entityManager.flush();
         }
 
-        List<TemperatureMeasurementEntity> allMeasurement = measurementRepository.findAll();
+        List<Measurement> allMeasurement = measurementRepository.findAll();
         assertEquals(48, allMeasurement.size());
-        List<TemperatureMeasurementEntity> actualLastDayMeasurements = measurementRepository.lastDayMeasurementsByClient(userName).orElseThrow(NullPointerException::new);
+
+        List<Measurement> actualLastDayMeasurements =
+                measurementRepository.lastDayMeasurementsByDeviceId(measurementDevice.getId()).orElseThrow(NullPointerException::new);
         assertEquals(lastDayMeasurements, actualLastDayMeasurements);
 
-        for (TemperatureMeasurementEntity unwantedMeasurement : unwantedMeasurements) {
+        for (Measurement unwantedMeasurement : unwantedMeasurements) {
             assertFalse(actualLastDayMeasurements.contains(unwantedMeasurement));
         }
 

@@ -1,5 +1,7 @@
 package hu.kerdei.tempa.service.exception;
 
+import hu.kerdei.tempa.persistence.model.MeasurementDevice;
+
 public class MeasurementNotFoundException extends RuntimeException {
 
     public MeasurementNotFoundException(Integer year) {
@@ -16,5 +18,13 @@ public class MeasurementNotFoundException extends RuntimeException {
 
     public MeasurementNotFoundException(Integer year, Integer month, String clientName) {
         super("Could not find measurement for the client: " + clientName + " in year:" + year + " in month:" + month);
+    }
+
+    public MeasurementNotFoundException(Long deviceId) {
+        super("Could not find measurement for the device id: " + deviceId);
+    }
+
+    public MeasurementNotFoundException(MeasurementDevice device) {
+        super("Could not find measurement for the device: " + device.toString());
     }
 }
