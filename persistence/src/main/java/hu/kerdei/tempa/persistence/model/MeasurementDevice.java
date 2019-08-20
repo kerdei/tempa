@@ -23,13 +23,20 @@ public class MeasurementDevice {
     private Long id;
 
     @NotNull
+    @Column(unique = true)
     private Long meterID;
 
     @NotNull
     @Size(max = 30, min = 3)
     private String measurerDeviceName;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false , cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public MeasurementDevice(Long meterID, String measurerDeviceName, User user) {
+        this.meterID = meterID;
+        this.measurerDeviceName = measurerDeviceName;
+        this.user = user;
+    }
 }

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "measurements")
 @Table(name = "measurements")
 public class Measurement {
 
@@ -27,7 +27,13 @@ public class Measurement {
     @NotNull
     private LocalDateTime date;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "device_id", nullable = false)
     private MeasurementDevice measurementDevice;
+
+    public Measurement(Double value, LocalDateTime date, MeasurementDevice measurementDevice) {
+        this.value = value;
+        this.date = date;
+        this.measurementDevice = measurementDevice;
+    }
 }
