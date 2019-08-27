@@ -6,6 +6,7 @@ import hu.kerdei.tempa.service.domain.MeasurementDto;
 import hu.kerdei.tempa.service.exception.MeasurementNotFoundException;
 import hu.kerdei.tempa.service.interfaces.MeasurementService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 
@@ -18,11 +19,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MeasurementServiceImpl implements MeasurementService {
 
-    private MeasurementRepository measurementRepository;
-    private ModelMapper modelMapper;
+    private final MeasurementRepository measurementRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public List<MeasurementDto> getAll() {

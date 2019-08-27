@@ -49,10 +49,11 @@ public class PersistenceApplicationTests {
         entityManager.persist(notCorrectUser);
 
 
-        MeasurementDevice measurementDevice = new MeasurementDevice(3L, "Bedroom", correctUser);
-        MeasurementDevice notCorrectMeasurementDevice = new MeasurementDevice(4L, "Bedroom", notCorrectUser);
+        MeasurementDevice measurementDevice = new MeasurementDevice(5L, "Bedroom", correctUser);
+        MeasurementDevice notCorrectMeasurementDevice = new MeasurementDevice(6L, "Bedroom", notCorrectUser);
 
         entityManager.persist(measurementDevice);
+        entityManager.persist(notCorrectMeasurementDevice);
         for (int i = 0; i < 16; i++) {
             lastDay = lastDay.plusHours(1);
             Measurement lastDayMeasurement = new Measurement(16.5, lastDay, measurementDevice);

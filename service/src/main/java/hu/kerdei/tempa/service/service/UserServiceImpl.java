@@ -10,6 +10,7 @@ import hu.kerdei.tempa.service.exception.MeasurementDeviceNotFoundException;
 import hu.kerdei.tempa.service.exception.UserNotFoundException;
 import hu.kerdei.tempa.service.interfaces.UserService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
@@ -18,13 +19,13 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
 
-    private ModelMapper modelMapper;
-    private UserRepository userRepository;
-    private MeasurementDeviceRepository measurementDeviceRepository;
+    private final ModelMapper modelMapper;
+    private final UserRepository userRepository;
+    private final MeasurementDeviceRepository measurementDeviceRepository;
 
 
     @Override
